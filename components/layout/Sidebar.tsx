@@ -39,7 +39,7 @@ export default function Sidebar() {
       {/* Navigation */}
       <nav className="space-y-1 flex-1">
         <p className="text-xs font-semibold text-muted-foreground/60 uppercase tracking-wider px-3 mb-2">
-          Navigation
+          Primary Navigation
         </p>
         {navItems.map(({ href, icon: Icon, label }) => {
           const isActive = pathname === href;
@@ -65,7 +65,7 @@ export default function Sidebar() {
       <div className="mt-4 px-3 py-3 rounded-lg bg-secondary/40 border border-border/50">
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="text-xs font-medium text-emerald-400">Stellar Testnet</span>
+          <span className="text-xs font-medium text-emerald-400">Stellar Testnet RPC</span>
         </div>
         <p className="text-xs text-muted-foreground mt-1 font-mono truncate">
           {process.env.NEXT_PUBLIC_STELLAR_RPC_URL?.replace("https://", "") ?? "soroban-testnet.stellar.org"}
