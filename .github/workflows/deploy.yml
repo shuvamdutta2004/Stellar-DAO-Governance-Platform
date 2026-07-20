@@ -1,0 +1,72 @@
+name: Deploy to Vercel
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+
+jobs:
+  deploy:
+    name: Deploy Production
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://multi-signature-treasury-dashboard.vercel.app
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Check Vercel Credentials
+        id: check_credentials
+        run: |
+          if [ -z "${{ env.VERCEL_TOKEN }}" ] || [ -z "${{ env.VERCEL_ORG_ID }}" ] || [ -z "${{ env.VERCEL_PROJECT_ID }}" ]; then
+            echo "⚠️ Vercel credentials (VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID) are not configured."
+            echo "Skipping production deployment steps."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "✅ Vercel credentials found. Proceeding with deployment."
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Pull Vercel environment
+        if: steps.check_credentials.outputs.skip == 'false'
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Build project for Vercel
+        if: steps.check_credentials.outputs.skip == 'false'
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy to Vercel
+        if: steps.check_credentials.outputs.skip == 'false'
+        id: deploy
+        run: |
+          DEPLOYMENT_URL=$(vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }})
+          echo "deployment_url=$DEPLOYMENT_URL" >> "$GITHUB_OUTPUT"
+          echo "✅ Deployed to: $DEPLOYMENT_URL"
+
+      - name: Comment deployment URL on PR
+        if: github.event_name == 'pull_request' && steps.check_credentials.outputs.skip == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `🚀 **Deployed to Vercel!**\n\n🔗 **URL**: ${{ steps.deploy.outputs.deployment_url }}\n\n_Auto-deployed from commit ${{ github.sha }}_`
+            })
