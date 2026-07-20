@@ -31,7 +31,7 @@ A **production-grade, on-chain DAO governance dApp** built on Stellar/Soroban. D
 | **Freighter Wallet Address** | `GD73H6YI3Z63WGVEVXC4NECRTNXZ6EPYIDUJIQHGWKK6IOAG5D7PNUO2` |
 | **GitHub Repository** | [shuvamdutta2004/Stellar-DAO-Governance-Platform](https://github.com/shuvamdutta2004/Stellar-DAO-Governance-Platform) |
 | **Live Deployment** | [stellar-dao-governance-platform.vercel.app](https://stellar-dao-governance-platform.vercel.app/) |
-| **Demo Video** | [Watch Demo Video on Google Drive](https://drive.google.com/file/d/1c2Dgrx2lHIdP5ki39-opCLN55rZZJ_mn/view?usp=sharing) |
+| **Demo Video** | [Watch Demo Video on Google Drive](https://drive.google.com/file/d/1dXPCNXjuHJQjdkOHtsf9zI62s_vdvJqj/view?usp=sharing) |
 
 ---
 
