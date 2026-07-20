@@ -10,7 +10,7 @@ env:
   NEXT_PUBLIC_STELLAR_NETWORK: testnet
   NEXT_PUBLIC_STELLAR_RPC_URL: https://soroban-testnet.stellar.org
   NEXT_PUBLIC_NETWORK_PASSPHRASE: "Test SDF Network ; September 2015"
-  NEXT_PUBLIC_TREASURY_CONTRACT_ID: CANWI4UO2NHX3PJD6VDSHTXJHNPRBATL5VRBDCNQATUQW2LUWF4YM4JP
+  NEXT_PUBLIC_TREASURY_CONTRACT_ID: CAUD5JJ5S3GKLZJWUSTUMPP5DOU3KVK5F6QG5H7JQS4CNVCRGWHZX3YW
   NEXT_PUBLIC_HORIZON_URL: https://horizon-testnet.stellar.org
   NEXT_PUBLIC_NATIVE_TOKEN_ADDRESS: CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC
 
@@ -84,5 +84,15 @@ jobs:
 
       - name: Check WASM artifact exists
         run: |
-          ls -lh target/wasm32-unknown-unknown/release/treasury.wasm
-          echo "Contract size: $(wc -c < target/wasm32-unknown-unknown/release/treasury.wasm) bytes"
+          WASM_PATH=""
+          if [ -f "target/wasm32-unknown-unknown/release/dao_governance.wasm" ]; then
+            WASM_PATH="target/wasm32-unknown-unknown/release/dao_governance.wasm"
+          elif [ -f "target/wasm32-unknown-unknown/release/treasury.wasm" ]; then
+            WASM_PATH="target/wasm32-unknown-unknown/release/treasury.wasm"
+          fi
+          if [ -z "$WASM_PATH" ]; then
+            echo "❌ No WASM artifact found!"
+            exit 1
+          fi
+          ls -lh "$WASM_PATH"
+          echo "Contract WASM: $WASM_PATH ($(wc -c < $WASM_PATH) bytes)"
