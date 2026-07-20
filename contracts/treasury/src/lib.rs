@@ -422,7 +422,7 @@ mod test {
     fn test_initialize() {
         let env = Env::default();
         let contract_id = env.register_contract(None, DaoGovernanceContract);
-        let client = TreasuryContractClient::new(&env, &contract_id);
+        let client = DaoGovernanceContractClient::new(&env, &contract_id);
 
         let signer1 = Address::generate(&env);
         let signer2 = Address::generate(&env);
@@ -447,7 +447,7 @@ mod test {
         env.mock_all_auths();
 
         let contract_id = env.register_contract(None, DaoGovernanceContract);
-        let client = TreasuryContractClient::new(&env, &contract_id);
+        let client = DaoGovernanceContractClient::new(&env, &contract_id);
 
         let signer1 = Address::generate(&env);
         let signer2 = Address::generate(&env);
