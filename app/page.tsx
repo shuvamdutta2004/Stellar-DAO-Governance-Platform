@@ -72,9 +72,9 @@ export default function HomePage() {
           <span className="text-foreground">Built on Soroban</span>
         </h1>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-          A fully on-chain DAO governance platform. Submit governance proposals,
-          vote collectively as a community, and execute decisions — all governed by
-          a Soroban smart contract on Stellar.
+          A fully on-chain DAO governance platform. Submit proposals, vote as a
+          community, and execute decisions — all governed by a Soroban smart
+          contract on Stellar.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
@@ -82,7 +82,7 @@ export default function HomePage() {
             id="hero-cta-proposals"
             className="flex items-center gap-2 btn-primary px-6 py-3 text-base"
           >
-            Explore Treasury
+            View Proposals
             <ArrowRight className="w-4 h-4" />
           </Link>
           <Link
@@ -90,7 +90,7 @@ export default function HomePage() {
             id="hero-cta-dashboard"
             className="flex items-center gap-2 btn-ghost px-6 py-3 text-base border border-border/60 hover:border-border rounded-lg"
           >
-            Connect a Wallet
+            Open Dashboard
           </Link>
         </div>
       </section>
