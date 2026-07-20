@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Shield, Menu } from "lucide-react";
 import WalletConnectButton from "@/components/wallet/WalletConnectButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -18,6 +18,10 @@ const navItems = [
 export default function Navbar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-md">
@@ -35,6 +39,8 @@ export default function Navbar() {
           className="lg:hidden p-2 rounded-lg hover:bg-secondary/60 transition-colors"
           onClick={() => setMobileOpen((v) => !v)}
           aria-label="Toggle menu"
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-navigation"
         >
           <Menu className="w-5 h-5" />
         </button>
@@ -58,7 +64,10 @@ export default function Navbar() {
 
       {/* Mobile nav */}
       {mobileOpen && (
-        <div className="lg:hidden border-t border-border/50 bg-card/90 backdrop-blur-sm px-4 py-3 space-y-1 animate-fade-in">
+        <div
+          id="mobile-navigation"
+          className="lg:hidden border-t border-border/50 bg-card/90 backdrop-blur-sm px-4 py-3 space-y-1 animate-fade-in"
+        >
           {navItems.map(({ href, label }) => (
             <Link
               key={href}

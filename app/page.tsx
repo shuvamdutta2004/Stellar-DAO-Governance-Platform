@@ -82,7 +82,7 @@ export default function HomePage() {
             id="hero-cta-proposals"
             className="flex items-center gap-2 btn-primary px-6 py-3 text-base"
           >
-            View Proposals
+            Explore Treasury
             <ArrowRight className="w-4 h-4" />
           </Link>
           <Link
@@ -90,7 +90,7 @@ export default function HomePage() {
             id="hero-cta-dashboard"
             className="flex items-center gap-2 btn-ghost px-6 py-3 text-base border border-border/60 hover:border-border rounded-lg"
           >
-            Connect Wallet
+            Connect a Wallet
           </Link>
         </div>
       </section>
